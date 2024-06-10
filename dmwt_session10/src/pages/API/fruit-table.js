@@ -4,7 +4,6 @@ export default async function handler(request, response) {
         const result =
         await sql `CREATE TABLE Obst (
 
-            id int(11) NOT NULL,
             Deutscher Name varchar(50) NOT NULL,
             Lateinischer Name varchar(50) NOT NULL,
             Farbe varchar(50) NOT NULL,
