@@ -15,7 +15,6 @@ export default async function handler(request, response) {
       `;
 
       const { rows: fruits } = await sql`SELECT * FROM obst;`;
-
       return response.status(200).json(fruits);
     } catch (error) {
       console.error('Error during request processing:', error);
