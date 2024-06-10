@@ -1,18 +1,18 @@
-import {sql} from '@vercel/postgres';
+import { sql } from '@vercel/postgres';
+
 export default async function handler(request, response) {
     try {
-        const result =
-        await sql `CREATE TABLE Obst (
-
-            Deutscher Name varchar(50) NOT NULL,
-            Lateinischer Name varchar(50) NOT NULL,
+        const result = await sql`
+        CREATE TABLE IF NOT EXISTS obst (
+            "Deutscher Name" varchar(50) NOT NULL,
+            "Lateinischer Name" varchar(50) NOT NULL,
             Farbe varchar(50) NOT NULL,
             Herkunft varchar(200) NOT NULL,
-            Kalorien auf 100 Gramm int(11) NOT NULL
-        
-          );`;
-          return response.status(200).json({ result });
-          } catch (errror) {
-            return response.status(500).json({ error });
-          }
-        }
+            Kalorien int NOT NULL
+        );`;
+        return response.status(200).json({ result });
+    } catch (error) {
+        console.error('Error creating table:', error);
+        return response.status(500).json({ error: error.message });
+    }
+}
