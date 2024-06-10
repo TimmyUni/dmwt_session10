@@ -6,7 +6,7 @@ export default async function handler(request, response) {
       const { germanName, latinName, color, origin, calories } = request.body;
 
       if (!germanName || !latinName || !color || !origin || !calories) {
-        throw new Error('All fields are required');
+        return response.status(400).json({ error: 'All fields are required' });
       }
 
       await sql`
@@ -15,7 +15,7 @@ export default async function handler(request, response) {
       `;
 
       const { rows: fruits } = await sql`SELECT * FROM obst;`;
-      return response.status(200).json(fruits);
+      return response.status(200).json(fruits); // Ensure you return the rows
     } catch (error) {
       console.error('Error during request processing:', error);
       return response.status(500).json({ error: error.message });
