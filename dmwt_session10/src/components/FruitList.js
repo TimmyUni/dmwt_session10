@@ -4,7 +4,7 @@ import useSWR from 'swr';
 const fetcher = url => fetch(url).then(res => res.json());
 
 const FruitList = () => {
-  const { data: fruits, isLoading, error, mutate } = useSWR('/api/list-fruits', fetcher, {
+  const { data: fruits, error } = useSWR('/api/list-fruits', fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
@@ -13,13 +13,13 @@ const FruitList = () => {
     return <p>Failed to fetch</p>;
   }
 
-  if (isLoading) {
+  if (!fruits) {
     return <p>Loading fruits...</p>;
   }
 
   return (
     <ul>
-      {fruits && fruits.length > 0 ? (
+      {fruits.length > 0 ? (
         fruits.map((fruit, index) => (
           <li key={index}>
             {fruit['Deutscher Name']} ({fruit['Lateinischer Name']}), {fruit.Farbe}, {fruit.Herkunft}, {fruit.Kalorien} kcal
