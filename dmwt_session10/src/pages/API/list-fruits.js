@@ -3,7 +3,7 @@ import { sql } from '@vercel/postgres';
 export default async function handler(request, response) {
   if (request.method === 'GET') {
     try {
-      const fruits = await sql`SELECT * FROM obst;`;
+      const { rows: fruits } = await sql`SELECT * FROM obst;`;
       return response.status(200).json(fruits);
     } catch (error) {
       console.error('Error during request processing:', error);

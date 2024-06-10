@@ -14,7 +14,7 @@ export default async function handler(request, response) {
         VALUES (${germanName}, ${latinName}, ${color}, ${origin}, ${calories});
       `;
 
-      const fruits = await sql`SELECT * FROM obst;`;
+      const { rows: fruits } = await sql`SELECT * FROM obst;`;
 
       return response.status(200).json(fruits);
     } catch (error) {
